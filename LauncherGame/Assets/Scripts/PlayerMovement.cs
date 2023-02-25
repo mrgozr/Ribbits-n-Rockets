@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
     private bool rocketReady;
     private float rocketCD = 1.2f;
     private float rocketCDCurrent = 0.0f;
+    private float rocketPower = 0.0f;
+    private float rocketPowerMax = 42;
+    private float rocketPowerAtomic = 100;
+    private bool rocketAtomicEnabled = false;
     private Transform launchDirection;
 
     private enum MovementState { idle, running, jumping, falling }
@@ -57,13 +61,39 @@ public class PlayerMovement : MonoBehaviour
             rocketReady = false;
         }
 
-        // IF PLAYER USES ROCKET JUMP
-        if (Input.GetMouseButtonDown(0) && rocketReady)
+        // CHARGE UP ROCKET JUMP
+        if (Input.GetKey("space") && rocketReady)
         {
-            // RESTART COOLDOWN AND LAUNCH PLAYER
-            rocketCDCurrent = 0.0f;
-            RocketLaunchPlayer();
+            rocketPower += 0.01f;
         }
+
+        // IF ROCKET JUMP IS RELEASED
+        if (Input.GetKey("space") == false && rocketPower > 0 && rocketReady)
+        {
+            // MAX LIMIT ON HOW MUCH EXTRA FORCE ADDED TO JUMP
+            if (rocketPower > rocketPowerMax)
+            {
+                rocketPower = rocketPowerMax;
+            }
+            // IF ATOMIC CHARGE IS ENABLED (POSSIBLY CONSIDERED A CHEAT IF ENABLED)
+            if (rocketPower > rocketPowerAtomic && rocketAtomicEnabled)
+            {
+                rocketPower = rocketPowerAtomic;
+            }
+            
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketPower);
+            rocketPower = 0;
+            rocketCDCurrent = 0.0f;
+        }
+        Debug.Log("rocketPower =" + rocketPower);
+
+        // IF PLAYER USES ROCKET JUMP
+        //if (Input.GetMouseButtonDown(0) && rocketReady)
+        //{
+            // RESTART COOLDOWN AND LAUNCH PLAYER
+            //rocketCDCurrent = 0.0f;
+            //RocketLaunchPlayer();
+        //}
         
         UpdateAnimationState();
     }
