@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private float rocketCD = 1.2f;
     private float rocketCDCurrent = 0.0f;
     private float rocketPower = 0.0f;
-    private float rocketPowerMax = 42;
+    [SerializeField] private float rocketPowerScale = 0.05f;
+    [SerializeField] private float rocketPowerMax = 10;
     private float rocketPowerAtomic = 100;
     private bool rocketAtomicEnabled = false;
     private Transform launchDirection;
@@ -61,14 +62,19 @@ public class PlayerMovement : MonoBehaviour
             rocketReady = false;
         }
 
+        if(IsGrounded())
+        {
+            rocketPower = 0;
+        }
+
         // CHARGE UP ROCKET JUMP
         if (Input.GetKey("space") && rocketReady)
         {
-            rocketPower += 0.01f;
+            rocketPower += rocketPowerScale;
         }
 
         // IF ROCKET JUMP IS RELEASED
-        if (Input.GetKey("space") == false && rocketPower > 0 && rocketReady)
+        if (Input.GetKey("space") == false && rocketPower > 0 && rocketReady && !IsGrounded())
         {
             // MAX LIMIT ON HOW MUCH EXTRA FORCE ADDED TO JUMP
             if (rocketPower > rocketPowerMax)
@@ -101,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimationState()
     {
         MovementState state;
-
+        //Several if() checks to determine player movement, updates sprite accordingly [uses DirX and vel.y respectively]
         if (dirX > 0f)
         {
             state = MovementState.running;
