@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    private bool isSecondJump = false;
 
     // ROCKET JUMP SECTION
     private bool rocketReady;
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isSecondJump = true;
         }
 
         // ROCKET JUMP COOLDOWN CHECK
@@ -65,10 +67,15 @@ public class PlayerMovement : MonoBehaviour
         if(IsGrounded())
         {
             rocketPower = 0;
+            isSecondJump = false;
+        }
+        else
+        {
+            isSecondJump = true;
         }
 
         // CHARGE UP ROCKET JUMP
-        if (Input.GetKey("space") && rocketReady)
+        if (Input.GetButton("Jump") && rocketReady && isSecondJump)
         {
             rocketPower += rocketPowerScale;
         }
@@ -91,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
             rocketPower = 0;
             rocketCDCurrent = 0.0f;
         }
-        Debug.Log("rocketPower =" + rocketPower);
+        Debug.Log("rocketPower =" + rocketPower + "  |  isSecondJump = " + isSecondJump + "   |   rocketReady = " + rocketReady);
+
 
         // IF PLAYER USES ROCKET JUMP
         //if (Input.GetMouseButtonDown(0) && rocketReady)
