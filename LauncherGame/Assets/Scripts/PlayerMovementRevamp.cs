@@ -22,12 +22,19 @@ public class PlayerMovementRevamp : MonoBehaviour
 
     // Rocket Jump Variables
     private bool rocketJumpAvailable;
+    private bool isChargingRocketJump;
     [SerializeField] private float rocketChargeVal = 0.0f;
     [SerializeField] private float rocketChargeScale = .05f;
     [SerializeField] private float rocketChargeMax = 10.0f;
 
 
     private enum MovementState { idle, running, jumping, falling }
+
+    // Sound Variables
+    [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource rocketReleaseSoundEffect;
+    [SerializeField] private AudioSource rocketChargeSoundEffect;
+    private bool rocketChargeStartedSound;
 
     // Start is called before the first frame update
     private void Start()    {
@@ -37,12 +44,13 @@ public class PlayerMovementRevamp : MonoBehaviour
         anim = GetComponent<Animator>();
 
     }
-    // Update is called once per frame
+    // FixedUpdate is called once per frame
     private void Update()    {
         IsGrounded();
         movementMechanics();
         UpdateAnimationState();
-        Debug.Log("canJump: " + canJump + " | rocketJumpAvailable: " + rocketJumpAvailable + " | rocketChargeVal: " + rocketChargeVal);
+        ChargeJumpAudio();
+        Debug.Log("isChargingRocketJump: " + isChargingRocketJump + " | moveSpeed: " + moveSpeed + " | rocketChargeVal: " + rocketChargeVal);
     }
     void movementMechanics()
     {
@@ -56,8 +64,9 @@ public class PlayerMovementRevamp : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && canJump)
         {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                firstJump = true;
+            jumpSoundEffect.Play();
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            firstJump = true;
         }
         else if(Input.GetButtonUp("Jump") && firstJump)    
         {
@@ -65,9 +74,17 @@ public class PlayerMovementRevamp : MonoBehaviour
             firstJump = false;
         }
         else if (rocketJumpAvailable && Input.GetButton("Jump"))
+        {
             rocketChargeVal += rocketChargeScale;
+            isChargingRocketJump = true;
+
+        }
         else if(rocketJumpAvailable && Input.GetButtonUp("Jump"))
         {
+            rocketChargeSoundEffect.Stop();
+            rocketReleaseSoundEffect.Play();
+            isChargingRocketJump = false;
+            moveSpeed = 15.0f;
             if(rocketChargeVal > rocketChargeMax)
                 rocketChargeVal = rocketChargeMax;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketChargeVal);
@@ -85,8 +102,11 @@ public class PlayerMovementRevamp : MonoBehaviour
         canJump = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
         if(canJump)
         {
+            isChargingRocketJump = false;
             rocketJumpAvailable = false;
+            rocketChargeSoundEffect.Stop();
             rocketChargeVal = 0;
+            moveSpeed = 10.0f;
         }
     }
     void UpdateAnimationState()
@@ -120,5 +140,17 @@ public class PlayerMovementRevamp : MonoBehaviour
         }
 
         anim.SetInteger("state", (int)state);
+    }
+    void ChargeJumpAudio()
+    {
+        if(isChargingRocketJump && !rocketChargeStartedSound)
+        {
+            rocketChargeStartedSound = true;
+            rocketChargeSoundEffect.Play();
+        }
+        if(!isChargingRocketJump)
+            rocketChargeStartedSound = false;
+        /* Uses a semaphore variable to lock and check this value, so the sound file does not repeatedly play every frame, but rather once until done.        
+        */
     }
 }
