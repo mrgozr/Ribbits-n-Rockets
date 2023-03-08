@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovementRevamp : MonoBehaviour
 {
-
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
@@ -19,7 +18,6 @@ public class PlayerMovementRevamp : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
 
-
     // Rocket Jump Variables
     private bool rocketJumpAvailable;
     private bool isChargingRocketJump;
@@ -27,13 +25,13 @@ public class PlayerMovementRevamp : MonoBehaviour
     [SerializeField] private float rocketChargeScale = .05f;
     [SerializeField] private float rocketChargeMax = 10.0f;
 
-
+    // Sprite Modification Variables
     private enum MovementState { idle, running, jumping, falling }
 
     // Sound Variables
     [SerializeField] private AudioSource jumpSoundEffect;
-    [SerializeField] private AudioSource rocketReleaseSoundEffect;
     [SerializeField] private AudioSource rocketChargeSoundEffect;
+    [SerializeField] private AudioSource rocketReleaseSoundEffect;
     private bool rocketChargeStartedSound;
 
     // Start is called before the first frame update
@@ -42,22 +40,27 @@ public class PlayerMovementRevamp : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-
     }
-    // FixedUpdate is called once per frame
+    
+    // Update is called once per frame
     private void Update()    {
         IsGrounded();
         movementMechanics();
         UpdateAnimationState();
         ChargeJumpAudio();
-        Debug.Log("isChargingRocketJump: " + isChargingRocketJump + " | moveSpeed: " + moveSpeed + " | rocketChargeVal: " + rocketChargeVal);
+        Debug.Log(
+        "   | isChargingRocketJump: " + isChargingRocketJump
+        + " | rocketJumpAvailable: " + rocketJumpAvailable
+        + " | rocketChargeVal: " + rocketChargeVal
+        + " | firstJump: " + firstJump
+        );
     }
     void movementMechanics()
     {
         /* Sets a velocity of X based on the left-right axis input (A, D by default)
         canJump is a variable set by the IsGrounded() function. firstJump tracks the first jumpkey depression and release.
         Once the user jumps, canJump is set to false, firstJump is set to false, rocketJumpAvailable is set to true
-        One the jump key is released and pressed again, a rocketjump intitates. This charges the rocketChargeVal by increments of rocketChargeScale until released, which then launches the player. */
+        Once the jump key is released and pressed again, a rocketjump intitates. This charges the rocketChargeVal by increments of rocketChargeScale until released, which then launches the player. */
         
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
@@ -89,7 +92,6 @@ public class PlayerMovementRevamp : MonoBehaviour
                 rocketChargeVal = rocketChargeMax;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketChargeVal);
             rocketJumpAvailable = false;
-            firstJump = true;
         }
 
     }
@@ -150,7 +152,7 @@ public class PlayerMovementRevamp : MonoBehaviour
         }
         if(!isChargingRocketJump)
             rocketChargeStartedSound = false;
-        /* Uses a semaphore variable to lock and check this value, so the sound file does not repeatedly play every frame, but rather once until done.        
+        /* Uses a semaphore variable (rocketChargeStartedSound) to lock and check this value, so the sound file does not repeatedly play every frame, but rather once until done.        
         */
     }
 }
