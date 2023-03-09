@@ -87,9 +87,11 @@ public class PlayerMovementRevamp : MonoBehaviour
             rocketChargeSoundEffect.Stop();
             rocketReleaseSoundEffect.Play();
             isChargingRocketJump = false;
-            moveSpeed = 15.0f;
+
             if(rocketChargeVal > rocketChargeMax)
                 rocketChargeVal = rocketChargeMax;
+
+            moveSpeed += (rocketChargeVal/2.0f);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketChargeVal);
             rocketJumpAvailable = false;
         }
