@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraFollow2D : MonoBehaviour
 {
@@ -16,14 +17,22 @@ public class CameraFollow2D : MonoBehaviour
         The third variable can later be changed into a ceiling ((targetToFollow.position.y, 0f, [CEILING HERE]))*/
 
         //BELOW CODE USED FOR CAMERA ONLY FOLLOW Y MOVEMENT
-        // transform.position = new Vector3(
-        //     transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, targetToFollow.position.y), transform.position.z);
-
-        //BELOW CODE USED FOR CAMERA ONLY FOLLOW X MOVEMENT
-        transform.position = new Vector3(
-            Mathf.Clamp(targetToFollow.position.x, 0f, 154.0f), 
-            transform.position.y, 
-            transform.position.z
+        if(SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            transform.position = new Vector3(
+                transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, targetToFollow.position.y), transform.position.z
             );
+        }
+        //BELOW CODE USED FOR CAMERA ONLY FOLLOW X MOVEMENT
+        if(SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            transform.position = new Vector3(
+                Mathf.Clamp(targetToFollow.position.x, 0f, 154.0f), 
+                transform.position.y, 
+                transform.position.z
+            );
+        }
+        
+        
     }
 }

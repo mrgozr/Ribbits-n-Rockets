@@ -22,6 +22,10 @@ public class PlayerLife : MonoBehaviour
         {
             Die();
         }
+        else if(collision.gameObject.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
     private void Die()
     {

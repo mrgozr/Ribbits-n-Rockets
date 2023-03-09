@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementRevamp : MonoBehaviour
 {
@@ -64,6 +65,11 @@ public class PlayerMovementRevamp : MonoBehaviour
         
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+
+        if(Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadScene(0);
+        }
 
         if(Input.GetButtonDown("Jump") && canJump)
         {
