@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovementRevamp : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
@@ -20,10 +20,10 @@ public class PlayerMovementRevamp : MonoBehaviour
 
     // Rocket Jump Variables
     private bool rocketJumpAvailable;
-    private bool isChargingRocketJump;
-    [SerializeField] private float rocketChargeVal = 0.0f;
-    [SerializeField] private float rocketChargeScale = .05f;
-    [SerializeField] private float rocketChargeMax = 10.0f;
+    public bool isChargingRocketJump;
+    public float rocketChargeVal = 0.0f;
+    public float rocketChargeScale = .05f;
+    public float rocketChargeMax = 10.0f;
 
     // Sprite Modification Variables
     private enum MovementState { idle, running, jumping, falling }

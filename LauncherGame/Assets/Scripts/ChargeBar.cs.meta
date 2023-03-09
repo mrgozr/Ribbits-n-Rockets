@@ -3,7 +3,11 @@ guid: 3940632cb419093448ea644ef714394f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - noCharge: {fileID: 898092495, guid: ab0f0e6899887784bb63a5bab637c474, type: 3}
+  - firstCharge: {fileID: -637341410, guid: ab0f0e6899887784bb63a5bab637c474, type: 3}
+  - secondCharge: {fileID: -1016078702, guid: ab0f0e6899887784bb63a5bab637c474, type: 3}
+  - maxCharge: {fileID: 1259572505, guid: ab0f0e6899887784bb63a5bab637c474, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
