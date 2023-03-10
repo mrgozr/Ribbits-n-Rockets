@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Menus : MonoBehaviour
 {
+    void Awake()
+    {
+    QualitySettings.vSyncCount = 0;
+     Application.targetFrameRate = 60;
+    }
+
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);

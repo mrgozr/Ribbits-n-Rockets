@@ -18,11 +18,12 @@ public class PlayerMovementRevamp : MonoBehaviour
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    [SerializeField] private float baseMoveSpeed;
 
     // Rocket Jump Variables
     private bool rocketJumpAvailable;
     public bool isChargingRocketJump;
-    public float rocketChargeVal = 0.0f;
+    public float rocketChargeVal = 1.0f;
     public float rocketChargeScale = .05f;
     public float rocketChargeMax = 10.0f;
 
@@ -35,6 +36,10 @@ public class PlayerMovementRevamp : MonoBehaviour
     [SerializeField] private AudioSource rocketReleaseSoundEffect;
     private bool rocketChargeStartedSound;
 
+    private void Awake()
+    {
+        baseMoveSpeed = moveSpeed;
+    }
     // Start is called before the first frame update
     private void Start()    {
         rb = GetComponent<Rigidbody2D>();
@@ -49,12 +54,12 @@ public class PlayerMovementRevamp : MonoBehaviour
         movementMechanics();
         UpdateAnimationState();
         ChargeJumpAudio();
-        Debug.Log(
-        "   | isChargingRocketJump: " + isChargingRocketJump
-        + " | rocketJumpAvailable: " + rocketJumpAvailable
-        + " | rocketChargeVal: " + rocketChargeVal
-        + " | firstJump: " + firstJump
-        );
+        // Debug.Log(
+        // "   | isChargingRocketJump: " + isChargingRocketJump
+        // + " | rocketJumpAvailable: " + rocketJumpAvailable
+        // + " | rocketChargeVal: " + rocketChargeVal
+        // + " | firstJump: " + firstJump
+        // );
     }
     void movementMechanics()
     {

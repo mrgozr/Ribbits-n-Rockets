@@ -27,7 +27,7 @@ public class CameraFollow2D : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex == 3)
         {
             transform.position = new Vector3(
-                Mathf.Clamp(targetToFollow.position.x, 0f, 154.0f), 
+                Mathf.Clamp(targetToFollow.position.x, 0f, 134.0f), 
                 transform.position.y, 
                 transform.position.z
             );
