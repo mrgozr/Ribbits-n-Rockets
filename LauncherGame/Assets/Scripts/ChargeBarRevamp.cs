@@ -41,7 +41,6 @@ public class ChargeBarRevamp : MonoBehaviour
     void Update()
     {
         chargeUpTheBar(); 
-        Debug.Log("Time = " + timerAnim);
     }
     // SHOWS BAR CHARGING PROGRESS TO USER
     void chargeUpTheBar()

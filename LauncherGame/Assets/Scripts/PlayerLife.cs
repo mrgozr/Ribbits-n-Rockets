@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerLife : MonoBehaviour
 {
     [SerializeField] private AudioSource deathSoundEffect;
+    [SerializeField] private AudioSource levelCompleteSoundEffect;
     private Rigidbody2D rb;
     private Animator anim;
     private bool isDead;
@@ -31,7 +32,10 @@ public class PlayerLife : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Finish"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            anim.SetTrigger("levelComplete");
+            rb.bodyType = RigidbodyType2D.Static;
+            levelCompleteSoundEffect.Play();
+            Invoke("CompleteLevel", 2f);
         }
     }
     private void Die()
@@ -40,6 +44,12 @@ public class PlayerLife : MonoBehaviour
         deathSoundEffect.Play();
         // isDead = true;
         anim.SetTrigger("death");
+    }
+
+    private void CompleteLevel()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void RestartLevel()
