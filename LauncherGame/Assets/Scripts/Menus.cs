@@ -1,14 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Menus : MonoBehaviour
 {
+
+    public Settings settings;
+    public bool testBool;
+
     void Awake()
     {
-    QualitySettings.vSyncCount = 0;
-     Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+        if(PlayerPrefs.GetInt("godmode") == 1)
+            Debug.Log("Godmode on!");
+        else if (PlayerPrefs.GetInt("godmode") == 0)
+            Debug.Log("Godmode off!");
+    }
+    void Update()
+    {
+
     }
 
     public void LoadMainMenu()
