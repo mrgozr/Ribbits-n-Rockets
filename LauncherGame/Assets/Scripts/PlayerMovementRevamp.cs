@@ -36,6 +36,9 @@ public class PlayerMovementRevamp : MonoBehaviour
     [SerializeField] private AudioSource rocketReleaseSoundEffect;
     private bool rocketChargeStartedSound;
 
+    private float TimeT;
+    private float showtime;
+
     private void Awake()
     {
         baseMoveSpeed = moveSpeed;
@@ -60,6 +63,10 @@ public class PlayerMovementRevamp : MonoBehaviour
         // + " | rocketChargeVal: " + rocketChargeVal
         // + " | firstJump: " + firstJump
         // );
+
+        // showtime += Time.deltaTime;
+        // Debug.Log ("TIMER:" + showtime);
+
     }
     void movementMechanics()
     {
@@ -89,7 +96,7 @@ public class PlayerMovementRevamp : MonoBehaviour
         }
         else if (rocketJumpAvailable && Input.GetButton("Jump"))
         {
-            rocketChargeVal += rocketChargeScale;
+            rocketChargeVal += (rocketChargeScale * Time.deltaTime);
             isChargingRocketJump = true;
 
         }
@@ -102,7 +109,7 @@ public class PlayerMovementRevamp : MonoBehaviour
             if(rocketChargeVal > rocketChargeMax)
                 rocketChargeVal = rocketChargeMax;
 
-            moveSpeed += (rocketChargeVal/2.0f);
+            moveSpeed += (rocketChargeVal/2.5f);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketChargeVal);
             rocketJumpAvailable = false;
         }
