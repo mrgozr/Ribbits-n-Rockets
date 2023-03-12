@@ -49,17 +49,17 @@ public class ChargeBarRevamp : MonoBehaviour
         {
             timerAnim += Time.deltaTime;
             // MAX CAPACITY
-            if (timerAnim >= .99f)
+            if (timerAnim >= .75f)
             {
                 cbsprite.sprite = maxCharge;
             }
             // 2/3 CHARGE
-            else if (timerAnim >= .66f)
+            else if (timerAnim >= .50f)
             {
                 cbsprite.sprite = secondCharge;
             }
             // 1/3 CHARGE
-            else if (timerAnim >= .33f)
+            else if (timerAnim >= .25f)
             {
                 cbsprite.sprite = firstCharge;
             }

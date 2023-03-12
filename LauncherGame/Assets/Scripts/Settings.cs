@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     [SerializeField] public bool isGodMode;
+    [SerializeField] public bool isFullscreen;
     public Toggle godmodeToggleSwitch;
+    public Toggle fullscreenToggleSwitch;
     // Start is called before the first frame update
 
     void Awake()
@@ -32,5 +34,9 @@ public class Settings : MonoBehaviour
             PlayerPrefs.SetInt("godmode", 0);
             isGodMode = false;
         }
+    }
+    public void fullscreenToggle()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
     }
 }
