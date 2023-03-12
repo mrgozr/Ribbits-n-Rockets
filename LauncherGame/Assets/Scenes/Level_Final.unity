@@ -181,7 +181,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2f28d06fc8906404eb8dfaa5dd723e14, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.362
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -423,6 +423,10 @@ PrefabInstance:
     - target: {fileID: 2327952240106706574, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327952240106706590, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: m_Volume
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2327952240106706590, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
       propertyPath: m_PlayOnAwake
@@ -2088,8 +2092,8 @@ Tilemap:
   - first: {x: -19, y: 11, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2473,11 +2477,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 37
+  - m_RefCount: 36
     m_Data: {fileID: 11400000, guid: 36452f2178d359049b957dade82eac09, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 3
+  - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 885999f0992c77d4197d5cbd4e73e609, type: 2}
   - m_RefCount: 14
     m_Data: {fileID: 11400000, guid: 2727296b823046c4d93f637ffd1d0572, type: 2}
@@ -2520,11 +2524,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 37
+  - m_RefCount: 36
     m_Data: {fileID: 334995865, guid: 413986c4a668c374d8de72a47621b531, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 3
+  - m_RefCount: 4
     m_Data: {fileID: -1886996717, guid: 413986c4a668c374d8de72a47621b531, type: 3}
   - m_RefCount: 14
     m_Data: {fileID: 764589996, guid: 413986c4a668c374d8de72a47621b531, type: 3}

@@ -12,7 +12,7 @@ public class Menus : MonoBehaviour
 
     void Awake()
     {
-        QualitySettings.vSyncCount = 0;
+        QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 60;
         if(PlayerPrefs.GetInt("godmode") == 1)
             Debug.Log("Godmode on!");
