@@ -20,7 +20,7 @@ public class CameraFollow2D : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex == 4)
         {
             transform.position = new Vector3(
-                transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, targetToFollow.position.y), transform.position.z
+                transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, 22.0f), transform.position.z
             );
         }
         //BELOW CODE USED FOR CAMERA ONLY FOLLOW X MOVEMENT
