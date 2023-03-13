@@ -12,9 +12,22 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private LayerMask jumpableGround;
 
+    // MOVEMENT FORCE SECTION
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
+    private bool isSecondJump = false;
+
+    // ROCKET JUMP SECTION
+    private bool rocketReady;
+    private float rocketCD = 1.2f;
+    private float rocketCDCurrent = 0.0f;
+    private float rocketPower = 0.0f;
+    [SerializeField] private float rocketPowerScale = 0.05f;
+    [SerializeField] private float rocketPowerMax = 10;
+    private float rocketPowerAtomic = 100;
+    private bool rocketAtomicEnabled = false;
+    private Transform launchDirection;
 
     private enum MovementState { idle, running, jumping, falling }
 
@@ -33,18 +46,76 @@ public class PlayerMovement : MonoBehaviour
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
+        // IF PLAYER JUMPS
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isSecondJump = true;
         }
 
+        // ROCKET JUMP COOLDOWN CHECK
+        if(rocketCDCurrent >= rocketCD)
+        {
+            rocketReady = true;
+        }
+        else
+        {
+            rocketCDCurrent = rocketCDCurrent + Time.deltaTime;
+            rocketReady = false;
+        }
+
+        if(IsGrounded())
+        {
+            rocketPower = 0;
+            isSecondJump = false;
+        }
+        else
+        {
+            isSecondJump = true;
+        }
+
+        // CHARGE UP ROCKET JUMP
+        if (Input.GetButton("Jump") && rocketReady && isSecondJump)
+        {
+            rocketPower += rocketPowerScale;
+        }
+
+        // IF ROCKET JUMP IS RELEASED
+        if (Input.GetKey("space") == false && rocketPower > 0 && rocketReady && !IsGrounded())
+        {
+            // MAX LIMIT ON HOW MUCH EXTRA FORCE ADDED TO JUMP
+            if (rocketPower > rocketPowerMax)
+            {
+                rocketPower = rocketPowerMax;
+            }
+            // IF ATOMIC CHARGE IS ENABLED (POSSIBLY CONSIDERED A CHEAT IF ENABLED)
+            if (rocketPower > rocketPowerAtomic && rocketAtomicEnabled)
+            {
+                rocketPower = rocketPowerAtomic;
+            }
+            
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketPower);
+            rocketPower = 0;
+            rocketCDCurrent = 0.0f;
+        }
+        Debug.Log("rocketPower =" + rocketPower + "  |  isSecondJump = " + isSecondJump + "   |   rocketReady = " + rocketReady);
+
+
+        // IF PLAYER USES ROCKET JUMP
+        //if (Input.GetMouseButtonDown(0) && rocketReady)
+        //{
+            // RESTART COOLDOWN AND LAUNCH PLAYER
+            //rocketCDCurrent = 0.0f;
+            //RocketLaunchPlayer();
+        //}
+        
         UpdateAnimationState();
     }
 
     private void UpdateAnimationState()
     {
         MovementState state;
-
+        //Several if() checks to determine player movement, updates sprite accordingly [uses DirX and vel.y respectively]
         if (dirX > 0f)
         {
             state = MovementState.running;
@@ -75,5 +146,22 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+
+    // ROCKET JUMP CALCULATIONS AND LAUNCH
+    private void RocketLaunchPlayer()
+    {
+        Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.Log("Mouse: " + cursorPosition);
+        Debug.Log("RB: " + rb.transform.position);
+
+        // GET DIFFERENCE BETWEEN MOUSE AND PLAYER POSITION AND GET ANGLE IN RADIANS/DEGREES
+        float xdif = cursorPosition.x - rb.transform.position.x;
+        float ydif = cursorPosition.y - rb.transform.position.y;
+        float anglerad = Mathf.Atan2(xdif,ydif);                    // ANGLE IN RADIANS
+        float angledeg = Mathf.Atan2(xdif,ydif) * Mathf.Rad2Deg;    // ANGLE IN DEGREES
+        Debug.Log("angle: " + angledeg);
+        // DEFAULT VELOCITY (FOR NOW) THAT IS BASICALLY A SUPER JUMP
+        rb.velocity = new Vector2(rb.velocity.x*2, jumpForce*2);
     }
 }
