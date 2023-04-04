@@ -24,7 +24,7 @@ public class CameraFollow2D : MonoBehaviour
             );
         }
         //BELOW CODE USED FOR CAMERA ONLY FOLLOW X MOVEMENT
-        if(SceneManager.GetActiveScene().buildIndex == 3)
+        if(SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 5)
         {
             transform.position = new Vector3(
                 Mathf.Clamp(targetToFollow.position.x, 0f, 134.0f), 
