@@ -17,7 +17,7 @@ public class CameraFollow2D : MonoBehaviour
         The third variable can later be changed into a ceiling ((targetToFollow.position.y, 0f, [CEILING HERE]))*/
 
         //BELOW CODE USED FOR CAMERA ONLY FOLLOW Y MOVEMENT
-        if(SceneManager.GetActiveScene().buildIndex == 4)
+        if(SceneManager.GetActiveScene().buildIndex == 4 || SceneManager.GetActiveScene().buildIndex == 6)
         {
             transform.position = new Vector3(
                 transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, 22.0f), transform.position.z

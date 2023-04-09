@@ -14911,6 +14911,10 @@ PrefabInstance:
       propertyPath: secondCharge2
       value: 
       objectReference: {fileID: 52679636, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702718, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2063104923, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
     - target: {fileID: 2327952240106706572, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
       propertyPath: m_RootOrder
       value: 1
