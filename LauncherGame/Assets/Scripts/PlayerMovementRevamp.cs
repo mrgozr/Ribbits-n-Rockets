@@ -15,6 +15,9 @@ public class PlayerMovementRevamp : MonoBehaviour
     // Base Movement Variables
     private bool canJump;
     private bool firstJump;
+    private bool isFalling;
+    private bool fallJump;
+
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
@@ -57,12 +60,14 @@ public class PlayerMovementRevamp : MonoBehaviour
         movementMechanics();
         UpdateAnimationState();
         ChargeJumpAudio();
-        // Debug.Log(
-        // "   | isChargingRocketJump: " + isChargingRocketJump
-        // + " | rocketJumpAvailable: " + rocketJumpAvailable
-        // + " | rocketChargeVal: " + rocketChargeVal
-        // + " | firstJump: " + firstJump
-        // );
+        Debug.Log(
+        "   | isChargingRocketJump: " + isChargingRocketJump
+        + " | rocketJumpAvailable: " + rocketJumpAvailable
+        + " | rocketChargeVal: " + rocketChargeVal
+        + " | firstJump: " + firstJump
+        + " | isFalling: " + isFalling
+        + " | fallJump: " + fallJump
+        );
 
         // showtime += Time.deltaTime;
         // Debug.Log ("TIMER:" + showtime);
@@ -94,12 +99,12 @@ public class PlayerMovementRevamp : MonoBehaviour
             rocketJumpAvailable = true;
             firstJump = false;
         }
-        else if (rocketJumpAvailable && Input.GetButton("Jump"))  //Charging rocket jump
+        else if ( ( rocketJumpAvailable && Input.GetButton("Jump") ) || ( isFalling && Input.GetButtonDown("Jump") && fallJump ) )  //Charging rocket jump
         {
             rocketChargeVal += (rocketChargeScale * Time.deltaTime);
             isChargingRocketJump = true;
         }
-        else if(rocketJumpAvailable && Input.GetButtonUp("Jump"))  //Release rocket jump
+        else if( ( rocketJumpAvailable && Input.GetButtonUp("Jump") ) || ( isFalling && Input.GetButtonUp("Jump") && fallJump ) )   //Release rocket jump
         {
             rocketChargeSoundEffect.Stop();
             rocketReleaseSoundEffect.Play();
@@ -109,8 +114,10 @@ public class PlayerMovementRevamp : MonoBehaviour
                 rocketChargeVal = rocketChargeMax;
 
             moveSpeed += (rocketChargeVal/2.5f);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketChargeVal);
             rocketJumpAvailable = false;
+            fallJump = false;
         }
 
     }
@@ -125,6 +132,7 @@ public class PlayerMovementRevamp : MonoBehaviour
         {
             isChargingRocketJump = false;
             rocketJumpAvailable = false;
+            fallJump = true;
             rocketChargeSoundEffect.Stop();
             rocketChargeVal = 0;
             moveSpeed = 10.0f;
@@ -159,6 +167,11 @@ public class PlayerMovementRevamp : MonoBehaviour
         {
             state = MovementState.falling;
         }
+
+        if(rb.velocity.y < -.1f)
+            isFalling = true;
+        else
+            isFalling = false;
 
         anim.SetInteger("state", (int)state);
     }
