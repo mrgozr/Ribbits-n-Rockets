@@ -78,29 +78,28 @@ public class PlayerMovementRevamp : MonoBehaviour
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        if(Input.GetButtonDown("Cancel"))
+        if(Input.GetButtonDown("Cancel"))  //Main menu interface
         {
             SceneManager.LoadScene(0);
         }
 
-        if(Input.GetButtonDown("Jump") && canJump)
+        if(Input.GetButtonDown("Jump") && canJump)  //First jump button
         {
             jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             firstJump = true;
         }
-        else if(Input.GetButtonUp("Jump") && firstJump)    
+        else if(Input.GetButtonUp("Jump") && firstJump)  //First jump button released
         {
             rocketJumpAvailable = true;
             firstJump = false;
         }
-        else if (rocketJumpAvailable && Input.GetButton("Jump"))
+        else if (rocketJumpAvailable && Input.GetButton("Jump"))  //Charging rocket jump
         {
             rocketChargeVal += (rocketChargeScale * Time.deltaTime);
             isChargingRocketJump = true;
-
         }
-        else if(rocketJumpAvailable && Input.GetButtonUp("Jump"))
+        else if(rocketJumpAvailable && Input.GetButtonUp("Jump"))  //Release rocket jump
         {
             rocketChargeSoundEffect.Stop();
             rocketReleaseSoundEffect.Play();

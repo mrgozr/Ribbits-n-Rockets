@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7188098333352806396}
   - component: {fileID: 7188098333352806398}
   - component: {fileID: 8689408846141279322}
-  m_Layer: 0
-  m_Name: cannon
-  m_TagString: traps
+  m_Layer: 6
+  m_Name: Cannon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
