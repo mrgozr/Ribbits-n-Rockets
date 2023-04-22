@@ -61,13 +61,18 @@ public class PlayerMovementRevamp : MonoBehaviour
         UpdateAnimationState();
         ChargeJumpAudio();
         Debug.Log(
-        "   | isChargingRocketJump: " + isChargingRocketJump
-        + " | rocketJumpAvailable: " + rocketJumpAvailable
-        + " | rocketChargeVal: " + rocketChargeVal
-        + " | firstJump: " + firstJump
+        " | firstJump: " + firstJump
         + " | isFalling: " + isFalling
         + " | fallJump: " + fallJump
+        + " | canJump: " + canJump
         );
+
+        /*
+                "   | isChargingRocketJump: " + isChargingRocketJump
+        + " | rocketJumpAvailable: " + rocketJumpAvailable
+        + " | rocketChargeVal: " + rocketChargeVal
+        + 
+        */
 
         // showtime += Time.deltaTime;
         // Debug.Log ("TIMER:" + showtime);
