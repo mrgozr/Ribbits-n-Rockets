@@ -120,10 +120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blankCharge: {fileID: 0}
-  noCharge: {fileID: 21300000, guid: 56283865b89046749a63bd2a13d022ff, type: 3}
-  firstCharge: {fileID: 21300000, guid: 76c9b714e8c1e9b43acef88eccc5c1ed, type: 3}
-  secondCharge: {fileID: 21300000, guid: 4ca3ec891fdfde04590672ad459af077, type: 3}
-  maxCharge: {fileID: 21300000, guid: ed95afa71a46677499beecb0ea134619, type: 3}
+  noCharge: {fileID: 2063104923, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+  firstCharge1: {fileID: 0}
+  firstCharge2: {fileID: 0}
+  secondCharge1: {fileID: 0}
+  secondCharge2: {fileID: 0}
+  maxCharge1: {fileID: 0}
+  maxCharge2: {fileID: 0}
   timerAnim: 0
   playerData: {fileID: 0}
 --- !u!1 &2327952240106706574
@@ -885,6 +888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathSoundEffect: {fileID: 2327952240106706586}
+  levelCompleteSoundEffect: {fileID: 0}
   playerSettings: {fileID: 0}
 --- !u!114 &2327952240106706585
 MonoBehaviour:
@@ -899,7 +903,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGodMode: 0
+  isFullscreen: 0
   godmodeToggleSwitch: {fileID: 0}
+  fullscreenToggleSwitch: {fileID: 0}
 --- !u!95 &2327952240106706587
 Animator:
   serializedVersion: 5
