@@ -17,6 +17,7 @@ public class PlayerMovementRevamp : MonoBehaviour
     private bool firstJump;
     private bool isFalling;
     private bool fallJump;
+    private bool fallCharge;
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
@@ -104,16 +105,20 @@ public class PlayerMovementRevamp : MonoBehaviour
             rocketJumpAvailable = true;
             firstJump = false;
         }
-        else if ( ( rocketJumpAvailable && Input.GetButton("Jump") ) || ( isFalling && Input.GetButtonDown("Jump") && fallJump ) )  //Charging rocket jump
+        else if ( ( rocketJumpAvailable && Input.GetButton("Jump") ) )  //Charging rocket jump
         {
+            //  || ( isFalling && Input.GetButtonDown("Jump") && fallJump ) 
             rocketChargeVal += (rocketChargeScale * Time.deltaTime);
             isChargingRocketJump = true;
+            fallCharge = true;
         }
-        else if( ( rocketJumpAvailable && Input.GetButtonUp("Jump") ) || ( isFalling && Input.GetButtonUp("Jump") && fallJump ) )   //Release rocket jump
+        else if( ( rocketJumpAvailable && Input.GetButtonUp("Jump") ) )   //Release rocket jump
         {
+            // || ( isFalling && Input.GetButtonUp("Jump") && fallJump && fallCharge)
             rocketChargeSoundEffect.Stop();
             rocketReleaseSoundEffect.Play();
             isChargingRocketJump = false;
+            fallCharge = false;
 
             if(rocketChargeVal > rocketChargeMax)
                 rocketChargeVal = rocketChargeMax;
@@ -131,13 +136,13 @@ public class PlayerMovementRevamp : MonoBehaviour
 
         /* Checks a created BoxCast below the player character to see if it connects to any texture tagged 'jumpableGround'. If so, canJump is set to true
         If canJump is true, the rocket jump is disabled, and the charge value is reset. */
-
+     
         canJump = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
         if(canJump)
         {
             isChargingRocketJump = false;
             rocketJumpAvailable = false;
-            fallJump = true;
+            // fallJump = true;
             rocketChargeSoundEffect.Stop();
             rocketChargeVal = 0;
             moveSpeed = 10.0f;
