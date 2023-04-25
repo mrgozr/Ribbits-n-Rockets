@@ -6,12 +6,15 @@ public class ChargeBarRevamp : MonoBehaviour
 {
     private Rigidbody2D cb;             // CHARGE BAR SPRITE BODY
     private SpriteRenderer cbsprite;    // CHARGE BAR SPRITE RENDERER
+    
     public Sprite blankCharge;
     public Sprite noCharge;             // NO CHARGE SPRITE
-    public Sprite firstCharge;          // FIRST CHARGE SPRITE
-    public Sprite secondCharge;         // SECOND CHARGE SPRITE
-    public Sprite maxCharge;            // MAX CHARGE SPRITE
-
+    public Sprite firstCharge1;         // FIRST CHARGE SPRITE  1/2
+    public Sprite firstCharge2;         // FIRST CHARGE SPRITE  2/2
+    public Sprite secondCharge1;        // SECOND CHARGE SPRITE 1/2
+    public Sprite secondCharge2;        // SECOND CHARGE SPRITE 2/2
+    public Sprite maxCharge1;           // MAX CHARGE SPRITE    1/2
+    public Sprite maxCharge2;           // MAX CHARGE SPRITE    2/2
 
     [SerializeField] private float timerAnim;
     private float rocketChargeM;
@@ -32,9 +35,12 @@ public class ChargeBarRevamp : MonoBehaviour
         cbsprite = GetComponent<SpriteRenderer>();
         cbsprite.sprite = blankCharge;
         cbsprite.sprite = noCharge;
-        cbsprite.sprite = firstCharge;
-        cbsprite.sprite = secondCharge;
-        cbsprite.sprite = maxCharge;
+        cbsprite.sprite = firstCharge1;
+        cbsprite.sprite = firstCharge2;
+        cbsprite.sprite = secondCharge1;
+        cbsprite.sprite = secondCharge2;
+        cbsprite.sprite = maxCharge1;
+        cbsprite.sprite = maxCharge2;        
     }
 
     // Update is called once per frame
@@ -48,21 +54,34 @@ public class ChargeBarRevamp : MonoBehaviour
         if(playerData.isChargingRocketJump)
         {
             timerAnim += Time.deltaTime;
-            // MAX CAPACITY
-            if (timerAnim >= .75f)
+
+            if (timerAnim >= .72f)
             {
-                cbsprite.sprite = maxCharge;
+                cbsprite.sprite = maxCharge2;
+            }
+            else if (timerAnim >= .60f)
+            {
+                cbsprite.sprite = maxCharge1;
+            }            
+            // MAX CAPACITY
+            else if (timerAnim >= .48f)
+            {
+                cbsprite.sprite = secondCharge2;
             }
             // 2/3 CHARGE
-            else if (timerAnim >= .50f)
+            else if (timerAnim >= .36f)
             {
-                cbsprite.sprite = secondCharge;
+                cbsprite.sprite = secondCharge1;
             }
             // 1/3 CHARGE
-            else if (timerAnim >= .25f)
+            else if (timerAnim >= .24f)
             {
-                cbsprite.sprite = firstCharge;
+                cbsprite.sprite = firstCharge2;
             }
+            else if (timerAnim >= .12f)
+            {
+                cbsprite.sprite = firstCharge1;
+            }            
             // NO CHARGE
             else if (timerAnim > 0)
             {

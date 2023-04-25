@@ -16,15 +16,17 @@ public class CameraFollow2D : MonoBehaviour
         X and Z are locked in, Y is Mathf.Clamped to set a floor for the camera (to not show beneath the player). 
         The third variable can later be changed into a ceiling ((targetToFollow.position.y, 0f, [CEILING HERE]))*/
 
+        //Level 1 is index 3, 2 is index 4, etc.
+
         //BELOW CODE USED FOR CAMERA ONLY FOLLOW Y MOVEMENT
-        if(SceneManager.GetActiveScene().buildIndex == 4)
+        if(SceneManager.GetActiveScene().buildIndex == 5 || SceneManager.GetActiveScene().buildIndex == 6 || SceneManager.GetActiveScene().buildIndex == 7)
         {
             transform.position = new Vector3(
                 transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, 22.0f), transform.position.z
             );
         }
         //BELOW CODE USED FOR CAMERA ONLY FOLLOW X MOVEMENT
-        if(SceneManager.GetActiveScene().buildIndex == 3)
+        if(SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
         {
             transform.position = new Vector3(
                 Mathf.Clamp(targetToFollow.position.x, 0f, 134.0f), 
@@ -32,7 +34,12 @@ public class CameraFollow2D : MonoBehaviour
                 transform.position.z
             );
         }
-        
-        
+        //below code used for level 5 only
+        if(SceneManager.GetActiveScene().buildIndex == 5)
+        {
+            transform.position = new Vector3(
+                transform.position.x, Mathf.Clamp(targetToFollow.position.y, 0f, 41.0f), transform.position.z
+            );
+        }
     }
 }

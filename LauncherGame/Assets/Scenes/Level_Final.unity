@@ -376,6 +376,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: noCharge
+      value: 
+      objectReference: {fileID: 2063104923, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: maxCharge1
+      value: 
+      objectReference: {fileID: 1338255014, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: maxCharge2
+      value: 
+      objectReference: {fileID: 877678542, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: firstCharge1
+      value: 
+      objectReference: {fileID: 1753755881, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: firstCharge2
+      value: 
+      objectReference: {fileID: 34912780, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: secondCharge1
+      value: 
+      objectReference: {fileID: 1052759351, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
+    - target: {fileID: 2327952239207702712, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
+      propertyPath: secondCharge2
+      value: 
+      objectReference: {fileID: 52679636, guid: e6b1093223d426c4785571ec75a5bc88, type: 3}
     - target: {fileID: 2327952240106706572, guid: 09a28bf1777ad5e47be0cf000cd5b498, type: 3}
       propertyPath: m_RootOrder
       value: 0

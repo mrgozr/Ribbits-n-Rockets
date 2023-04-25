@@ -15,6 +15,10 @@ public class PlayerMovementRevamp : MonoBehaviour
     // Base Movement Variables
     private bool canJump;
     private bool firstJump;
+    private bool isFalling;
+    private bool fallJump;
+    private bool fallCharge;
+
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
@@ -57,12 +61,19 @@ public class PlayerMovementRevamp : MonoBehaviour
         movementMechanics();
         UpdateAnimationState();
         ChargeJumpAudio();
-        // Debug.Log(
-        // "   | isChargingRocketJump: " + isChargingRocketJump
-        // + " | rocketJumpAvailable: " + rocketJumpAvailable
-        // + " | rocketChargeVal: " + rocketChargeVal
-        // + " | firstJump: " + firstJump
-        // );
+        Debug.Log(
+        " | firstJump: " + firstJump
+        + " | isFalling: " + isFalling
+        + " | fallJump: " + fallJump
+        + " | canJump: " + canJump
+        );
+
+        /*
+                "   | isChargingRocketJump: " + isChargingRocketJump
+        + " | rocketJumpAvailable: " + rocketJumpAvailable
+        + " | rocketChargeVal: " + rocketChargeVal
+        + 
+        */
 
         // showtime += Time.deltaTime;
         // Debug.Log ("TIMER:" + showtime);
@@ -78,40 +89,45 @@ public class PlayerMovementRevamp : MonoBehaviour
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        if(Input.GetButtonDown("Cancel"))
+        if(Input.GetButtonDown("Cancel"))  //Main menu interface
         {
             SceneManager.LoadScene(0);
         }
 
-        if(Input.GetButtonDown("Jump") && canJump)
+        if(Input.GetButtonDown("Jump") && canJump)  //First jump button
         {
             jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             firstJump = true;
         }
-        else if(Input.GetButtonUp("Jump") && firstJump)    
+        else if(Input.GetButtonUp("Jump") && firstJump)  //First jump button released
         {
             rocketJumpAvailable = true;
             firstJump = false;
         }
-        else if (rocketJumpAvailable && Input.GetButton("Jump"))
+        else if ( ( rocketJumpAvailable && Input.GetButton("Jump") ) )  //Charging rocket jump
         {
+            //  || ( isFalling && Input.GetButtonDown("Jump") && fallJump ) 
             rocketChargeVal += (rocketChargeScale * Time.deltaTime);
             isChargingRocketJump = true;
-
+            fallCharge = true;
         }
-        else if(rocketJumpAvailable && Input.GetButtonUp("Jump"))
+        else if( ( rocketJumpAvailable && Input.GetButtonUp("Jump") ) )   //Release rocket jump
         {
+            // || ( isFalling && Input.GetButtonUp("Jump") && fallJump && fallCharge)
             rocketChargeSoundEffect.Stop();
             rocketReleaseSoundEffect.Play();
             isChargingRocketJump = false;
+            fallCharge = false;
 
             if(rocketChargeVal > rocketChargeMax)
                 rocketChargeVal = rocketChargeMax;
 
             moveSpeed += (rocketChargeVal/2.5f);
+            rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce + rocketChargeVal);
             rocketJumpAvailable = false;
+            fallJump = false;
         }
 
     }
@@ -120,12 +136,13 @@ public class PlayerMovementRevamp : MonoBehaviour
 
         /* Checks a created BoxCast below the player character to see if it connects to any texture tagged 'jumpableGround'. If so, canJump is set to true
         If canJump is true, the rocket jump is disabled, and the charge value is reset. */
-
+     
         canJump = Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
         if(canJump)
         {
             isChargingRocketJump = false;
             rocketJumpAvailable = false;
+            // fallJump = true;
             rocketChargeSoundEffect.Stop();
             rocketChargeVal = 0;
             moveSpeed = 10.0f;
@@ -160,6 +177,11 @@ public class PlayerMovementRevamp : MonoBehaviour
         {
             state = MovementState.falling;
         }
+
+        if(rb.velocity.y < -.1f)
+            isFalling = true;
+        else
+            isFalling = false;
 
         anim.SetInteger("state", (int)state);
     }

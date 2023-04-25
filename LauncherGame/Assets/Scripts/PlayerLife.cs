@@ -9,6 +9,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private AudioSource levelCompleteSoundEffect;
     private Rigidbody2D rb;
     private Animator anim;
+    private BoxCollider2D boxCollider;
     private bool isDead;
 
     public Settings playerSettings;
@@ -22,6 +23,7 @@ public class PlayerLife : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,6 +43,7 @@ public class PlayerLife : MonoBehaviour
     private void Die()
     {
         rb.bodyType = RigidbodyType2D.Static;
+        boxCollider.enabled = false;
         deathSoundEffect.Play();
         // isDead = true;
         anim.SetTrigger("death");
@@ -49,6 +52,7 @@ public class PlayerLife : MonoBehaviour
     private void CompleteLevel()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        boxCollider.enabled = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -56,6 +60,7 @@ public class PlayerLife : MonoBehaviour
     {
         // transform.position = new Vector3(99f, -8f, 0f);
         rb.bodyType = RigidbodyType2D.Dynamic;
+        boxCollider.enabled = true;
         // isDead = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
