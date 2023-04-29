@@ -3,16 +3,16 @@
 ### A game made by Thomas Bolton, Jake Bader, and Robert Valle
 
 ### Table of contents
-- [Introduction](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#introduction)
-- [Gameplay contents](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#Contents)
-- [Default controls](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#Default-controls)
-- [Installation](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#installation)
+- [Introduction](https://github.com/mrgozr/Ribbits-n-Rockets/#Introduction)
+- [Gameplay](https://github.com/mrgozr/Ribbits-n-Rockets/#Gameplay)
+- [Default controls](https://github.com/mrgozr/Ribbits-n-Rockets/#Default-controls)
+- [Installation](https://github.com/mrgozr/Ribbits-n-Rockets/#Installation)
 
 ### Introduction
 [Ribbits n' Rockets](https://github.com/Ribbits-n-Rockets) is a game developed in the CIS 464: Computer Game Design course offered at UMass Dartmouth. Development and progress on the game was overseen by Dr. Firas Khatib and feedback was routinely collected by colleagues. 
 
 The goal of each level of Ribbits n' Rockets is to traverse to the checkered flag a the end of each level. To do so, you must dodge hazards such as spikes, cannons, and sawblades, while utilizing your ability to rocket jump to span far distances and climb tall heights.
-### Gameplay contents
+### Gameplay
 The primary mechanic of Ribbits n' Rockets is the rocket jump. Holding down the space bar will charge up an increasingly powerful jump that, upon release, shoots the player a large distance both horizontally and vertically. When charging the jump, a UI element is displayed on the side, showing the amount of power currently stored in the jump.
 ![rocket_jump](https://user-images.githubusercontent.com/98601809/235254055-73733025-5269-43cb-a34b-9f0d099680db.gif)
 
