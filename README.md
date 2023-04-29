@@ -3,10 +3,10 @@
 ### A game made by Thomas Bolton, Jake Bader, and Robert Valle
 
 ### Table of contents
-- [Introduction](https://github.com/mrgozr/Ribbits-n-Rockets/edit/main/README.md#introduction)
-- [Gameplay contents](https://github.com/mrgozr/Ribbits-n-Rockets/main/README.md#Contents)
-- [Default controls](https://github.com/mrgozr/Ribbits-n-Rockets/main/README.md#Default-controls)
-- [Installation](https://github.com/mrgozr/Ribbits-n-Rockets/main/README.md#installation)
+- [Introduction](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#introduction)
+- [Gameplay contents](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#Contents)
+- [Default controls](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#Default-controls)
+- [Installation](https://github.com/mrgozr/Ribbits-n-Rockets/README.md#installation)
 
 ### Introduction
 [Ribbits n' Rockets](https://github.com/Ribbits-n-Rockets) is a game developed in the CIS 464: Computer Game Design course offered at UMass Dartmouth. Development and progress on the game was overseen by Dr. Firas Khatib and feedback was routinely collected by colleagues. 
